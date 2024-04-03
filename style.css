@@ -3,10 +3,11 @@
     padding:0;
     box-sizing:border-box;
 }
-body{
-    padding:16px;
-    background-color: rgb(193, 231, 248);
-    
+body {
+    padding: 16px;
+    background-color: rgb(222, 248, 255, 0.2);
+    background-image: url("images/sfondo.jpg");
+    background-size: cover;
 }
 .container {
 	margin: 0 auto;
@@ -15,20 +16,21 @@ body{
 }
 h1{
     font-size:30px;
-    color:white;
+    font-family: 'Courier New', Courier, monospace;
+    color:rgb(200, 232, 245);
 }
 input{
     padding: 16px;
     font-size: 20px;
     border-radius: 10px;
-    color: rgb(5, 69, 112);
+    color: rgb(64, 5, 112);
     border:none;
     text-align: center;
 }
 button{
-    padding:5px 10px;
-    background-color:  rgb(115, 174, 201);
-    border-radius: 16px;
+    padding:5px 8px;
+    background-color:  rgb(192, 232, 255);
+    border-radius: 100px;
     border:none;
     cursor: pointer;
 }
@@ -39,21 +41,29 @@ header{
     margin-bottom: 10px;
 }
 .panel{
-    background-color: rgb(83, 123, 184);
+    background-color:   rgb(87, 166, 212, 0.6) ;
     padding:16px;
     border-radius:16px;
     
 }
 .translation{
-    background-color: rgb(214, 240, 247);
+    background-color: rgb(247, 240, 253, 0.5);
     margin-bottom: 10px;
+   
 }
 .translation-text{
     font-size: 30px;
     text-align: center;
+    
 }
 .translation-flag{
     width:30px;
+}
+.translation-results{ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height:120px;
 }
 .controls{
     display: flex;
