@@ -7,12 +7,13 @@
     </head>
     <body><div class="container">
 <header class="panel">
-    <h1>Traduttore</h1>
-    <img src="images/razzo.gif" width="120">
+   <img src="images/razzo.gif" width="120"> 
+   <h1>Let's translate!</h1>
+   
 </header>
 <main>
     <section class="panel translation">
-        <div class="translation-flag"><img src="images/italy.png" width="30px"></div>
+        <div class="translation-flag"></div>
         <div class="translation-results">
             <p class="translation-text">Traduzione</p>
         </div>
@@ -21,15 +22,17 @@
     <section class="panel controls">
         <input class="text-input" type="text" placeholder="Write here">
   
-  <button class="lang-button"><img src="images/united-kingdom.png" width="35"></button>
-  <button class="lang-button"><img src="images/france.png"width="35"></button>
-  <button class="lang-button"><img src="images/germany.png" width="35"></button>
-  <button class="lang-button"><img src="images/spain.png" width="35"></button>
- <hr color="white" >
-  <button class="lang-button"><img src="images/japan.png" width="35"></button>
-  <button class="lang-button"><img src="images/china.png" width="35"></button>
-  <button class="lang-button"><img src="images/south-korea.png" width="35"></button>
+  <button class="lang-button" data-lang="en"><img src="images/united-kingdom.png" width="45"></button>
+  <button class="lang-button"data-lang="fr"><img src="images/france.png"width="45"></button>
+  <button class="lang-button" data-lang="de"><img src="images/germany.png" width="45"></button>
+  <button class="lang-button"data-lang="es"><img src="images/spain.png" width="45"></button>
+  <button class="lang-button"data-lang="jpn"><img src="images/japan.png" width="45"></button>
+  <button class="lang-button" data-lang="kor"><img src="images/south-korea.png" width="45"></button>
+  <hr color="white" >
+<button class="random-button" title="Random word?"><img src="images/random.gif" width="50"></button>
+<button class="reset-button" title="Reset?"><img src="images/reset.gif" width="50"></button>
 </section>
 </main></div>
+<script src="script.js"></script>
     </body>
 </html>
