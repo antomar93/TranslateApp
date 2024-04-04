@@ -88,14 +88,12 @@ const countries = {
     "en": "images/united-kingdom.png",
     "fr": "images/france.png",
     "es": "images/spain.png",
-    "de": "images/germany.png",
-    "jpn": "images/japan.png",
-    "kor": "images/south-korea.png"
+    "de": "images/germany.png"
 };
 
 // Funzione per ottenere una lingua e una bandiera casuali
 function getRandomLangFlag() {
-    const languages = ["en", "fr", "de", "es", "jpn", "kor"];
+    const languages = ["en", "fr", "de", "es"];
     const randomIndex = Math.floor(Math.random() * languages.length);
     const randomLang = languages[randomIndex];
     const flag = countries[randomLang];
