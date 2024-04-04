@@ -1,81 +1,94 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
 body {
     padding: 16px;
-    background-color: rgb(222, 248, 255, 0.2);
+    background-color: rgba(222, 248, 255, 0.2);
     background-image: url("images/sfondo.jpg");
     background-size: cover;
-}
-.container {
-	margin: 0 auto;
-	max-width: 680px;
-    align-items: center;
-}
-h1{
-    font-size:40px;
     font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    color:rgb(200, 232, 245);
 }
-input{
+
+.container {
+    margin: 0 auto;
+    max-width: 680px;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: bold;
+    color: rgb(200, 232, 245);
+}
+
+input {
     padding: 16px;
     font-size: 20px;
     border-radius: 10px;
     color: rgb(64, 5, 112);
-    border:none;
+    border: none;
     text-align: center;
+    font-family: 'Courier New', Courier, monospace;
 }
-button{
-    padding:5px 8px;
-    background-color:  rgb(192, 232, 255);
+
+button {
+    padding: 5px 8px;
+    background-color: rgb(192, 232, 255);
     border-radius: 100px;
-    border:none;
+    border: none;
     cursor: pointer;
 }
-header{
-    display:flex;
+
+header {
+    display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
 }
-.panel{
-    background-color:   rgb(87, 166, 212, 0.3) ;
-    padding:16px;
-    border-radius:16px;
-    
+
+.panel {
+    background-color: rgba(87, 166, 212, 0.3);
+    padding: 16px;
+    border-radius: 16px;
 }
-.translation{
-    background-color: rgb(247, 240, 253, 0.5);
+
+.translation {
+    background-color: rgba(247, 240, 253, 0.5);
     margin-bottom: 10px;
-   
 }
-.translation-text{
+
+.translation-text {
     font-size: 30px;
     text-align: center;
-    
+    font-family: 'Courier New', Courier, monospace;
 }
-.translation-flag{
-    width:30px;
+
+.translation-flag {
+    width: 30px;
 }
-.translation-results{ 
+
+.translation-results {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height:120px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight:400;
-    color:rgb(106, 145, 190);
+    min-height: 120px;
+    font-weight: 400;
+    color: rgb(106, 145, 190);
 }
-.controls{
+
+.controls {
     display: flex;
     flex-wrap: wrap;
-    gap:16px;
+    gap: 16px;
     justify-content: center;
 }
-.text-input{
-    width:100%;
-    font-family: 'Courier New', Courier, monospace;
+
+.text-input {
+    width: 95%;
+}
+
+.random {
+    cursor: pointer;
 }

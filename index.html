@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="icon" href="images/giphy.gif">
-        <title>Translate App</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body><div class="container">
-<header class="panel">
-   <img src="images/razzo.gif" width="120"> 
-   <h1>Let's translate!</h1>
-   
-</header>
-<main>
-    <section class="panel translation">
-        <div class="translation-flag"></div>
-        <div class="translation-results">
-            <p class="translation-text">Traduzione</p>
-        </div>
-
-    </section>
-    <section class="panel controls">
-        <input class="text-input" type="text" placeholder="Write here">
-  
-  <button class="lang-button" data-lang="en"><img src="images/united-kingdom.png" width="45"></button>
-  <button class="lang-button"data-lang="fr"><img src="images/france.png"width="45"></button>
-  <button class="lang-button" data-lang="de"><img src="images/germany.png" width="45"></button>
-  <button class="lang-button"data-lang="es"><img src="images/spain.png" width="45"></button>
-  <button class="lang-button"data-lang="jpn"><img src="images/japan.png" width="45"></button>
-  <button class="lang-button" data-lang="kor"><img src="images/south-korea.png" width="45"></button>
-  <hr color="white" >
-<button class="random-button" title="Random word?"><img src="images/random.gif" width="50"></button>
-<button class="reset-button" title="Reset?"><img src="images/reset.gif" width="50"></button>
-</section>
-</main></div>
-<script src="script.js"></script>
-    </body>
+<head>
+    <link rel="icon" href="images/giphy.gif">
+    <title>Translate App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="panel">
+            <img src="images/razzo.gif" width="120">
+            <img class="random" src="images/icona.gif" title="Parola random" width="70">
+            <h1>Let's translate!</h1>
+        </header>
+        <main>
+            <section class="panel translation">
+                <div class="translation-flag"></div>
+                <div class="translation-results">
+                    <p class="translation-text">Traduzione</p>
+                    <p class="random-word"></p>
+                </div>
+            </section>
+            <section class="panel controls">
+                <input class="text-input" type="text" placeholder="Scrivi qui la parola">
+                <button class="lang-button" data-lang="en"><img src="images/united-kingdom.png" width="45"></button>
+                <button class="lang-button" data-lang="fr"><img src="images/france.png" width="45"></button>
+                <button class="lang-button" data-lang="de"><img src="images/germany.png" width="45"></button>
+                <button class="lang-button" data-lang="es"><img src="images/spain.png" width="45"></button>
+                <button class="lang-button" data-lang="jpn"><img src="images/japan.png" width="45"></button>
+                <button class="lang-button" data-lang="kor"><img src="images/south-korea.png" width="45"></button>
+                <hr color="white">
+                <button class="read-button" title="Pronuncia?"><img src="images/random.gif" width="50"></button>
+                <button class="reset-button" title="Reset?"><img src="images/reset.gif" width="50"></button>
+                <!-- sound -->
+                <audio id='clickSound2'><source src="sound/bird-voice.mp3" preload='auto'></audio>
+                <audio id='clickSound'><source src="sound/bird-reset.mp3" preload='auto'></audio>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
 </html>
