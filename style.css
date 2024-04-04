@@ -6,7 +6,7 @@
 
 body {
     padding: 16px;
-    background-color: rgba(222, 248, 255, 0.2);
+    background-color: rgb(145, 231, 255);
     background-image: url("images/sfondo.jpg");
     background-size: cover;
     font-family: 'Courier New', Courier, monospace;
