@@ -9,6 +9,7 @@ body {
     background-color: rgb(145, 231, 255);
     background-image: url("images/sfondo.JPG");
     background-size: cover;
+    display: flex;
     font-family: 'Courier New', Courier, monospace;
 }
 

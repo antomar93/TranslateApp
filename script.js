@@ -59,19 +59,30 @@ langButtons.forEach(function(langButton) {
     });
 });
 
+const countries = {
+    "en": "images/united-kingdom.png",
+    "fr": "images/france.png",
+    "es": "images/spain.png",
+    "de": "images/germany.png"
+};
+
 // Funzione per eseguire una traduzione casuale
 async function random() {
     let text = await randomCountry();
     const randomLangFlag = getRandomLangFlag();
     const lang = randomLangFlag.lang;
     const flag = randomLangFlag.flag;
-    textInput.value = text; // Visualizza la parola random nell'inputText
-    translate(text, lang, flag);
-
-    // Traduci la parola random in italiano e visualizzala nel pannello
-    const italianTranslation = await translateToItalian(text, lang);
-    translationItalian.innerText = `Traduzione: ${italianTranslation}`;
-}
+  
+    // Traduci la parola random in italiano
+    const italianTranslationPromise = translate('it', null);  // 'it' come lingua target per l'italiano
+    const italianTranslation = await italianTranslationPromise;  // Attendere la risoluzione della Promise
+  
+    // Imposta la traduzione italiana come valore dell'inputText
+    textInput.value = `Traduzione: ${italianTranslation}`;
+  
+    translationItalian.innerText = "";  // Resetta il contenuto della traduzione italiana
+    await translate(text, lang, flag);  // Aspetta la fine della seconda traduzione
+  } 
 
 // Funzione per ottenere un paese casuale
 async function randomCountry() {
@@ -83,22 +94,15 @@ async function randomCountry() {
     return text;
 }
 
-
-const countries = {
-    "en": "images/united-kingdom.png",
-    "fr": "images/france.png",
-    "es": "images/spain.png",
-    "de": "images/germany.png"
-};
-
 // Funzione per ottenere una lingua e una bandiera casuali
 function getRandomLangFlag() {
-    const languages = ["en", "fr", "de", "es"];
-    const randomIndex = Math.floor(Math.random() * languages.length);
-    const randomLang = languages[randomIndex];
-    const flag = countries[randomLang];
-    return { lang: randomLang, flag: flag };
+  const languages = ["en", "fr", "de", "es"];
+  const randomIndex = Math.floor(Math.random() * languages.length);
+  const randomLang = languages[randomIndex];
+  const flag = countries[randomLang];
+  return { lang: randomLang, flag: flag };
 }
+
 
 // Funzione per salvare la traduzione nella cronologia
 function saveTranslationToHistory(input, output, lang) {
