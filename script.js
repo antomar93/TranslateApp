@@ -8,57 +8,6 @@ const readButton = document.querySelector('.read-button');
 const randomButton = document.querySelector('.random');
 const clickSound = document.getElementById('clickSound');
 const clickSound2 = document.getElementById('clickSound2');
-
-// Aggiungi event listener per il pulsante Reset
-resetButton.addEventListener('click', function() {
-    clickSound.play(); 
-    resetValues(); 
-});
-randomButton.addEventListener('click', function() {
-    clickSound2.play(); 
-});
-// Aggiungi event listener per il pulsante Read
-readButton.addEventListener('click', function() {
-    const text = translationText.innerText;
-    const lang = translationText.dataset.lang;
-    speak(text, lang);
-});
-
-// Aggiungi event listener per il pulsante Random
-randomButton.addEventListener('click', random);
-
-// Funzione per reimpostare i valori predefiniti
-function resetValues() {
-    textInput.value = "";
-    translationText.innerText = "Traduzione";
-    translationFlag.innerHTML = "";
-    translationItalian.innerText = ""; // Resetta anche la traduzione in italiano
-}
-
-// Funzione per tradurre il testo
-async function translate(text, lang, flag) {
-    const url = `https://api.mymemory.translated.net/get?q=${text}&langpair=it|${lang}`;
-    const response = await fetch(url);
-    const jsonData = await response.json();
-    const result = jsonData.responseData.translatedText;
-
-    translationText.innerText = result;
-    translationFlag.innerHTML = `<img src="${flag}" width="45">`;
-    translationText.dataset.lang = lang;
-
-    saveTranslationToHistory(text, result, lang);
-}
-
-// Itera sui pulsanti di lingua e aggiungi event listener
-langButtons.forEach(function(langButton) {
-    langButton.addEventListener('click', function() {
-        const text = textInput.value;
-        const lang = langButton.dataset.lang;
-        const flag = langButton.querySelector('img').getAttribute('src');
-        translate(text, lang, flag);
-    });
-});
-
 const countries = {
     "en": "images/united-kingdom.png",
     "fr": "images/france.png",
@@ -66,58 +15,116 @@ const countries = {
     "de": "images/germany.png"
 };
 
-// Funzione per eseguire una traduzione casuale
-async function random() {
-    let text = await randomCountry();
-    const randomLangFlag = getRandomLangFlag();
-    const lang = randomLangFlag.lang;
-    const flag = randomLangFlag.flag;
-  
-    // Traduci la parola random in italiano
-    const italianTranslationPromise = translate('it', null);  // 'it' come lingua target per l'italiano
-    const italianTranslation = await italianTranslationPromise;  // Attendere la risoluzione della Promise
-  
-    // Imposta la traduzione italiana come valore dell'inputText
-    textInput.value = `Traduzione: ${italianTranslation}`;
-  
-    translationItalian.innerText = "";  // Resetta il contenuto della traduzione italiana
-    await translate(text, lang, flag);  // Aspetta la fine della seconda traduzione
-  } 
+// Event listeners
+resetButton.addEventListener('click', () => {
+    clickSound.play(); 
+    resetValues(); 
+});
+readButton.addEventListener('click', () => readTranslation());
+randomButton.addEventListener('click', () => {
+    clickSound2.play(); 
+    randomTranslation();
+});
 
-// Funzione per ottenere un paese casuale
-async function randomCountry() {
+langButtons.forEach(langButton => {
+    langButton.addEventListener('click', () => {
+        const lang = langButton.dataset.lang;
+        const flag = langButton.querySelector('img').getAttribute('src');
+        translateText(lang, flag);
+    });
+});
+
+// Functions
+function resetValues() {
+    textInput.value = "";
+    translationText.innerText = "Traduzione";
+    translationFlag.innerHTML = "";
+    translationItalian.innerText = "";
+}
+
+async function translateText(lang, flag) {
+    const text = textInput.value;
+    const url = `https://api.mymemory.translated.net/get?q=${text}&langpair=it|${lang}`;
+    try {
+        const response = await fetch(url);
+        const jsonData = await response.json();
+        const result = jsonData.responseData.translatedText;
+        displayTranslation(result, lang, flag);
+        saveTranslationToHistory(text, result, lang);
+    } catch (error) {
+        console.error("Errore durante la traduzione:", error);
+    }
+}
+
+function displayTranslation(result, lang, flag) {
+    translationText.innerText = result;
+    translationFlag.innerHTML = `<img src="${flag}" width="45">`;
+    translationText.dataset.lang = lang;
+}
+
+async function randomTranslation() {
+    try {
+        const text = await fetchRandomWord();
+        const italianTranslation = await translateToItalian(text);
+        const randomLangFlag = getRandomLangFlag(); // Ottiene un oggetto con lingua e bandiera casuali
+        displayRandomTranslation(text, italianTranslation, randomLangFlag.flag);
+    } catch (error) {
+        console.error("Impossibile ottenere una parola casuale. Riprova più tardi.", error);
+    }
+}
+
+function displayRandomTranslation(text, italianTranslation, flag) {
+    const formattedItalianTranslation = italianTranslation.split(',')[0]; // Prende solo la prima traduzione italiana
+    translationFlag.innerHTML = `<img src="${flag}" width="45">`;
+    translationText.innerHTML = `Parola random: <strong>${text}</strong>, in italiano: <b>${formattedItalianTranslation}</b>`;
+}
+
+async function translateToItalian(text) {
+    const sourceLanguages = ["en", "es", "de", "fr"];
+    const italianTranslations = [];
+    try {
+        for (const lang of sourceLanguages) {
+            const url = `https://api.mymemory.translated.net/get?q=${text}&langpair=${lang}|it`;
+            const response = await fetch(url);
+            const jsonData = await response.json();
+            const italianTranslation = jsonData.responseData.translatedText;
+            italianTranslations.push(italianTranslation);
+        }
+    } catch (error) {
+        console.error("Errore durante la traduzione in italiano:", error);
+    }
+    return italianTranslations.join(', ');
+}
+
+async function fetchRandomWord() {
     const url = 'https://random-word-api.herokuapp.com/all';
     const response = await fetch(url);
     const jsonData = await response.json();
     const list = jsonData;
-    text = list[(Math.floor(Math.random() * list.length))];
-    return text;
+    return list[Math.floor(Math.random() * list.length)];
 }
-
-// Funzione per ottenere una lingua e una bandiera casuali
 function getRandomLangFlag() {
-  const languages = ["en", "fr", "de", "es"];
-  const randomIndex = Math.floor(Math.random() * languages.length);
-  const randomLang = languages[randomIndex];
-  const flag = countries[randomLang];
-  return { lang: randomLang, flag: flag };
+    const languages = ["en", "fr", "de", "es"];
+    const randomIndex = Math.floor(Math.random() * languages.length);
+    const randomLang = languages[randomIndex];
+    const flag = countries[randomLang];
+    return { lang: randomLang, flag: flag };
 }
 
-
-// Funzione per salvare la traduzione nella cronologia
 function saveTranslationToHistory(input, output, lang) {
     const historyEntry = { input: input, output: output, paese: lang };
     let translationHistory = localStorage.getItem('translationHistory');
-    if (!translationHistory) {
-        translationHistory = [];
-    } else {
-        translationHistory = JSON.parse(translationHistory);
-    }
+    translationHistory = translationHistory ? JSON.parse(translationHistory) : [];
     translationHistory.push(historyEntry);
     localStorage.setItem('translationHistory', JSON.stringify(translationHistory));
 }
 
-// Funzione per leggere il testo ad alta voce con la lingua specifica
+function readTranslation() {
+    const text = translationText.innerText;
+    const lang = translationText.dataset.lang;
+    speak(text, lang);
+}
+
 function speak(text, lang) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang;
